@@ -16,7 +16,7 @@ export const toggleModal = modal => ({
 });
 
 const formSent = user => {
-  return (dispatch) => {
+  return () => {
     console.log('user', user)
     const url = '/send'
     return fetch(url, {
@@ -27,10 +27,10 @@ const formSent = user => {
       body: JSON.stringify({user})
     })
     .then(() => {
-      return dispatch(user)
+      return (user)
     })
     .catch((error) => {
-      return dispatch(error)
+      return (error)
     })
   }
 }

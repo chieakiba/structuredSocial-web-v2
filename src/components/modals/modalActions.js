@@ -16,23 +16,21 @@ export const toggleModal = modal => ({
 });
 
 const formSent = user => {
-  return () => {
-    console.log('user', user)
-    const url = '/send'
-    return fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({user})
-    })
-    .then(() => {
-      return (user)
-    })
-    .catch((error) => {
-      return (error)
-    })
-  }
+  console.log('user', user)
+  const url = '/send'
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({user})
+  })
+  .then(() => {
+    return (user)
+  })
+  .catch((error) => {
+    return (error)
+  })
 }
 
 export const submitForm = () => {

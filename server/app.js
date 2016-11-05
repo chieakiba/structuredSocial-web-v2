@@ -3,7 +3,6 @@ import bodyParser from 'body-parser'
 import { api_key, domain } from './../api'
 import Mailgun from 'mailgun-js'
 import cors from 'cors'
-import 'babel-polyfill';
 
 const app = express()
 const corsOptions = {

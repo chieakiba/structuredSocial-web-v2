@@ -1,10 +1,18 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { api_key, domain } from './../api'
+import Mailgun from 'mailgun-js'
+import cors from 'cors'
 
-const app = express();
+const app = express()
+const corsOptions = {
+  origin: 'http:localhost:3000'
+}
+
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use(cors(corsOptions))
+
 
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -13,11 +21,11 @@ app.all('*', (req, res, next) => {
   next();
 });
 
-app.post('/send/mail', (req, res) => {
-  const mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+app.post('/send', (req, res) => {
+  const mailgun = new Mailgun({apiKey: api_key, domain: domain});
   const dataToUser = {
     from: 'stefan@structured-social.com',
-    to: req.params.to,
+    to: 'akiba.chie@gmail.com',
     subject: 'Thank you for your submission',
     text: 'We received your submission and will get back to you as soon as we can.'
   };
@@ -33,7 +41,13 @@ app.post('/send/mail', (req, res) => {
   // }
 
   mailgun.messages().send(dataToUser, (error, body) => {
-    console.log(body);
+    if(err) {
+        res.render('error', { error : err});
+        console.log("got an error: ", err);
+    }
+    else {
+      console.log(body);
+    }
   });
   // mailgun.messages().send(dataToSS, function (error, body) {
   //   console.log(body);

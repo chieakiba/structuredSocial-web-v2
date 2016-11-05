@@ -16,32 +16,33 @@ export const toggleModal = modal => ({
 });
 
 const formSent = user => {
-  console.log('user', user)
   const url = '/send'
   return fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({user})
+    body: {
+      email: user.to
+    }
   })
-  .then(() => {
-    return (user)
-  })
-  .catch((error) => {
-    return (error)
-  })
+  .then(res =>
+    console.log('what is res', res)
+  )
+  .catch(error =>
+    console.log('what is error', error))
 }
 
 export const submitForm = () => {
   return (dispatch, getState) => {
     const form = getState().form.InviteModalForm;
-    console.log('what is in the form', form)
     const user = {
       to: form.values.email,
       Instagram: form.values.Instagram,
       fullName: form.values.fullName
     }
+    console.log('what is form', form)
+    console.log('what is user', user)
     dispatch(formSent(user))
   }
 }

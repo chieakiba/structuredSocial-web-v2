@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import { api_key, domain } from './../api'
 import Mailgun from 'mailgun-js'
 import cors from 'cors'
+import 'babel-polyfill';
 
 const app = express()
 const corsOptions = {
@@ -22,10 +23,11 @@ app.all('*', (req, res, next) => {
 });
 
 app.post('/send', (req, res) => {
+  const email = req.body.email;
   const mailgun = new Mailgun({apiKey: api_key, domain: domain});
   const dataToUser = {
     from: 'stefan@structured-social.com',
-    to: 'akiba.chie@gmail.com',
+    to: email,
     subject: 'Thank you for your submission',
     text: 'We received your submission and will get back to you as soon as we can.'
   };
@@ -41,13 +43,7 @@ app.post('/send', (req, res) => {
   // }
 
   mailgun.messages().send(dataToUser, (error, body) => {
-    if(err) {
-        res.render('error', { error : err});
-        console.log("got an error: ", err);
-    }
-    else {
-      console.log(body);
-    }
+    console.log(body);
   });
   // mailgun.messages().send(dataToSS, function (error, body) {
   //   console.log(body);

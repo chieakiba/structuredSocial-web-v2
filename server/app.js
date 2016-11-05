@@ -1,11 +1,11 @@
-var express = require('express')
-var bodyParser = require('body-parser')
-var { api_key, domain } = require('./api')
-var Mailgun = require('mailgun-js')
-var cors = require('cors')
+import express from 'express'
+import bodyParser from 'body-parser'
+import { api_key, domain } from './api'
+import Mailgun from 'mailgun-js'
+import cors from 'cors'
 
-var app = express()
-var corsOptions = {
+const app = express()
+const corsOptions = {
   origin: 'http:localhost:3000'
 }
 
@@ -22,9 +22,9 @@ app.all('*', (req, res, next) => {
 });
 
 app.post('/send', (req, res) => {
-  var email = req.body.email;
-  var mailgun = new Mailgun({apiKey: api_key, domain: domain});
-  var dataToUser = {
+  const email = req.body.email;
+  const mailgun = new Mailgun({apiKey: api_key, domain: domain});
+  const dataToUser = {
     from: 'stefan@structured-social.com',
     to: email,
     subject: 'Thank you for your submission',
@@ -49,3 +49,6 @@ app.post('/send', (req, res) => {
   // });
 
 })
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`SERVER running on port ${PORT}`));

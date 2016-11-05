@@ -27,7 +27,7 @@
     "redux-thunk": "^2.1.0"
   },
   "scripts": {
-    "server": "nodemon server/app.js",
+    "server": "nodemon index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

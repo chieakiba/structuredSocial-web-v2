@@ -1,11 +1,11 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import { api_key, domain } from './api'
-import Mailgun from 'mailgun-js'
-import cors from 'cors'
+var express = require('express')
+var bodyParser = require('body-parser')
+var { api_key, domain } = require('./api')
+var Mailgun = require('mailgun-js')
+var cors = require('cors')
 
-const app = express()
-const corsOptions = {
+var app = express()
+var corsOptions = {
   origin: 'http:localhost:3000'
 }
 
@@ -22,9 +22,9 @@ app.all('*', (req, res, next) => {
 });
 
 app.post('/send', (req, res) => {
-  const email = req.body.email;
-  const mailgun = new Mailgun({apiKey: api_key, domain: domain});
-  const dataToUser = {
+  var email = req.body.email;
+  var mailgun = new Mailgun({apiKey: api_key, domain: domain});
+  var dataToUser = {
     from: 'stefan@structured-social.com',
     to: email,
     subject: 'Thank you for your submission',

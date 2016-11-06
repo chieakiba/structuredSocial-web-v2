@@ -28,12 +28,12 @@
     "redux-thunk": "^2.1.0"
   },
   "scripts": {
-    "proxy": "http://localhost:3001",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:3001",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
   "main": "index.html",
   "author": "Chie Akiba",

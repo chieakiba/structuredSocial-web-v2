@@ -21,7 +21,7 @@ app.use('*', (req, res, next) => {
   next();
 });
 
-app.post('localhost:3001/send', (req, res) => {
+app.post('/send', (req, res) => {
   const email = req.body.email;
   console.log('what is email', email)
   const mailgun = new Mailgun({apiKey: api_key, domain: domain});

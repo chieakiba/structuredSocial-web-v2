@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch'
+
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'
 export const FORM_SENT = 'FORM_SENT'
@@ -12,7 +14,7 @@ export const toggleModal = modal => ({
 });
 
 const formSent = user => {
-  const url = 'localhost:3001/send'
+  const url = '/send'
   return fetch(url, {
     method: 'POST',
     headers: {
@@ -22,11 +24,8 @@ const formSent = user => {
       email: user.to
     }
   })
-  .then(res =>
-    console.log('what is res', res)
-  )
-  .catch(error =>
-    console.log('what is error', error))
+  .then(res => console.log('what is res', res))
+  .catch(error => console.log('what is error', error))
 }
 
 export const submitForm = () => {

@@ -12,7 +12,7 @@ export const toggleModal = modal => ({
 });
 
 const formSent = user => {
-  const url = 'http://localhost:3001/send'
+  const url = 'localhost:3001/send'
   return fetch(url, {
     method: 'POST',
     headers: {

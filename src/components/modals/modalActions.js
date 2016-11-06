@@ -1,10 +1,6 @@
-// require('es6-promise').polyfill();
-// import fetch from 'isomorphic-fetch'
-// import {API_KEY, Domain, From_Who} from './../../../api'
-
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'
-export const FORM_SENT = 'FORM_SENT' // eslint-disable-line
+export const FORM_SENT = 'FORM_SENT'
 
 export const closeModal = () => ({
   type: CLOSE_MODAL
@@ -16,7 +12,7 @@ export const toggleModal = modal => ({
 });
 
 const formSent = user => {
-  const url = '/send'
+  const url = 'http://localhost:3001/send'
   return fetch(url, {
     method: 'POST',
     headers: {
@@ -41,13 +37,9 @@ export const submitForm = () => {
       Instagram: form.values.Instagram,
       fullName: form.values.fullName
     }
-    console.log('what is form', form)
-    console.log('what is user', user)
     dispatch(formSent(user))
   }
 }
-
-
 
 // export const sentSuccessThankUser = (msg) => {
 //   return (dispatch) => {

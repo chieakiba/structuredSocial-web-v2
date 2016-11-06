@@ -2,27 +2,28 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { api_key, domain } from './api'
 import Mailgun from 'mailgun-js'
-import cors from 'cors'
+// import cors from 'cors'
 
 const app = express()
-const corsOptions = {
-  origin: 'http:localhost:3000'
-}
+// const corsOptions = {
+//   origin: 'http:localhost:3000'
+// }
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
-app.use(cors(corsOptions))
+app.use(express.static('build'));
+// app.use(cors(corsOptions))
 
 
-app.all('*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+// app.use('*', (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type');
+//   next();
+// });
 
 app.post('/send', (req, res) => {
   const email = req.body.email;
+  console.log('what is email', email)
   const mailgun = new Mailgun({apiKey: api_key, domain: domain});
   const dataToUser = {
     from: 'stefan@structured-social.com',
@@ -42,7 +43,7 @@ app.post('/send', (req, res) => {
   // }
 
   mailgun.messages().send(dataToUser, (error, body) => {
-    console.log(body);
+    res.send('submitted', {email: email})
   });
   // mailgun.messages().send(dataToSS, function (error, body) {
   //   console.log(body);

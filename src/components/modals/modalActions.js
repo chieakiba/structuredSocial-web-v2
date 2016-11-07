@@ -14,18 +14,17 @@ export const toggleModal = modal => ({
 });
 
 const formSent = user => {
-  const url = '/send'
-  return fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: {
-      email: user.to
-    }
-  })
-  .then(res => console.log('what is res', res))
-  .catch(error => console.log('what is error', error))
+  // const url = 'https://crossorigin.me/https://localhost:3001/api/send'
+  return (dispatch) => {
+    return fetch('/send/mail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(data => dispatch(data))
+    .catch(error => console.log('what is error', error))
+  }
 }
 
 export const submitForm = () => {

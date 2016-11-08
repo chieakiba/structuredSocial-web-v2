@@ -17,7 +17,7 @@ export const submitForm = () => {
   return (dispatch, getState) => {
     const form = getState().form.InviteModalForm;
     const user = {
-      to: form.values.email,
+      email: form.values.email,
       Instagram: form.values.Instagram,
       fullName: form.values.fullName
     }

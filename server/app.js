@@ -4,14 +4,12 @@ import morgan from 'morgan'
 import config from './../config'
 
 const helper = require('sendgrid').mail;
-const sg = require('sendgrid')(config.API_KEY);
+const sg = require('sendgrid')(config.APIKEY);
 const app = express()
 
-console.log('hello')
 app.use(express.static('build/js'));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
 app.use(morgan('dev'));
 
 // app.use('*', (req, res, next) => {
@@ -28,12 +26,12 @@ app.get('/send/mail', (req, res) => {
 })
 
 app.post('/send/mail', (req, res) => {
-  const email = req.body
-  console.log('what is req.body', req.body)
-  res.send({
-    msg: 'does this show?',
-    email
-  })
+  const user = req.body.email
+  console.log('what is req.body', req.body, user)
+  // res.send({
+  //   msg: 'does this show?',
+  //   email
+  // })
 
   // ==============================
   // SENGRID ~ EMAIL
@@ -41,10 +39,10 @@ app.post('/send/mail', (req, res) => {
 
   const fromEmail = new helper.Email('noreply@structured-social.com');
   // const fromEmail = new helper.Email(config.email);
-  const toEmail = new helper.Email(req.body.to);
+  const toEmail = new helper.Email(req.body.email);
   const subject = 'Hello from Structured Social!';
   const content = new helper.Content('text/plain', 'Welcome to Structured Social!');
-  const mail = new helper.Mail(fromEmail, toEmail, subject, content);
+  const mail = new helper.Mail(fromEmail, subject, toEmail, content);
   const request = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
@@ -57,16 +55,6 @@ app.post('/send/mail', (req, res) => {
     console.log(res.headers); // eslint-disable-line
     console.log(err); // eslint-disable-line
   });
-  // const dataToSS = {
-  //   from: toEmail,
-  //   to: fromEmail
-  //   subject: user.form.values.fullName + '\'s form submission',
-  //   text: {
-  //     email: toEmail,
-  //     Instagram: req.body.Instagram,
-  //     fullName: req.body.fullName
-  //   }
-  // }
 })
 
 app.listen(3001, () => console.log('SERVER running on port 3001'));

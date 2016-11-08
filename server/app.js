@@ -2,17 +2,29 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { api_key, domain } from './api'
 import Mailgun from 'mailgun-js'
+import morgan from 'morgan'
+import config from './../config'
 // import cors from 'cors'
-
+const helper = require('sendgrid').mail;
+const sg = require('sendgrid')(config.API_KEY);
 const app = express()
 // const corsOptions = {
 //   origin: 'http:localhost:3000'
 // }
-
-app.use(bodyParser.json());
+console.log('hello')
+console.log(config.API_KEY)
 app.use(express.static('build/js'));
-// app.use(cors(corsOptions))
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
+app.use(morgan('dev'));
+
+// app.use(cors(corsOptions))
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 // app.use('*', (req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', '*');
@@ -21,35 +33,45 @@ app.use(express.static('build/js'));
 //   next();
 // });
 
-app.post('/send/mail', (req, res) => {
-  const email = req.body.email;
-  console.log('what is email', email)
-  const mailgun = new Mailgun({apiKey: api_key, domain: domain});
-  const dataToUser = {
-    from: 'stefan@structured-social.com',
-    to: email,
-    subject: 'Thank you for your submission',
-    text: 'We received your submission and will get back to you as soon as we can.'
-  };
-  // const dataToSS = {
-  //   from: user.form.values.email,
-  //   to: 'stefan@structured-social.com',
-  //   subject: user.form.values.fullName + '\'s form submission',
-  //   text: {
-  //     email: user.form.values.email,
-  //     Instagram: user.form.values.Instagram,
-  //     fullName: user.form.values.fullName
-  //   }
-  // }
-
-  mailgun.messages().send(dataToUser, (body) => {
-    res.send('submitted')
-  });
-  // mailgun.messages().send(dataToSS, function (error, body) {
-  //   console.log(body);
-  // });
-
+app.get('/send/mail', (req, res) => {
+  res.json({
+    message: 'hello world'
+  })
 })
 
-// const PORT = process.env.PORT || 3001;
-app.listen(3000, () => console.log('SERVER running on port 3000'));
+app.post('/send/mail', (req, res) => {
+  console.log(req.body)
+  // ==============================
+  // SENGRID ~ EMAIL
+  // ==============================
+
+  const mail = new helper.Mail(noReplyEmail, fromEmail, toEmail, subject, content);
+  const noReplyEmail = new helper.Email('noreply@structured-social.com');
+  const fromEmail = new helper.Email(config.fromEmail);
+  const toEmail = new helper.Email(req.body.to);
+  const subject = 'Hello from Structured Social!';
+  const content = new helper.Content('text/plain', 'Welcome to Structured Social!');
+  const request = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: mail.toJSON(),
+  });
+  sg.API(request, (err, res) => { // eslint-disable-line
+    console.log(res.statusCode); // eslint-disable-line
+    console.log(res.body); // eslint-disable-line
+    console.log(res.headers); // eslint-disable-line
+    console.log(err); // eslint-disable-line
+  });
+  // const dataToSS = {
+  //   from: toEmail,
+  //   to: fromEmail
+  //   subject: user.form.values.fullName + '\'s form submission',
+  //   text: {
+  //     email: toEmail,
+  //     Instagram: req.body.Instagram,
+  //     fullName: req.body.fullName
+  //   }
+  // }
+})
+
+app.listen(3001, () => console.log('SERVER running on port 3001'));

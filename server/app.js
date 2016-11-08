@@ -12,12 +12,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-// app.use('*', (req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-//   res.header('Access-Control-Allow-Headers', 'Content-Type');
-//   next();
-// });
+app.use('*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 app.get('/send/mail', (req, res) => {
   res.json({
@@ -26,13 +26,6 @@ app.get('/send/mail', (req, res) => {
 })
 
 app.post('/send/mail', (req, res) => {
-  const user = req.body.email
-  console.log('what is req.body', req.body, user)
-  // res.send({
-  //   msg: 'does this show?',
-  //   email
-  // })
-
   // ==============================
   // SENGRID ~ EMAIL
   // ==============================

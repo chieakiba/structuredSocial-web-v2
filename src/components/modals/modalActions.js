@@ -1,4 +1,3 @@
-// import fetch from 'isomorphic-fetch'
 import axios from 'axios'
 
 export const CLOSE_MODAL = 'CLOSE_MODAL'
@@ -14,20 +13,6 @@ export const toggleModal = modal => ({
   modal
 });
 
-// const formSent = user => {
-  // const url = 'https://crossorigin.me/https://localhost:3001/api/send'
-//   return (dispatch) => {
-//     return fetch('/send/mail', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     })
-//     .then(data => console.log('what is data', data))
-//     .catch(error => console.log('what is error', error))
-//   }
-// }
-
 export const submitForm = () => {
   return (dispatch, getState) => {
     const form = getState().form.InviteModalForm;
@@ -36,7 +21,6 @@ export const submitForm = () => {
       Instagram: form.values.Instagram,
       fullName: form.values.fullName
     }
-    // dispatch(formSent(user))
     return axios.post('http://localhost:3001/send/mail', user)
       .then(res => console.log('what is res.data', res.data))
       .catch(error => console.log('what is error', error))

@@ -1,61 +1,44 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { api_key, domain } from './api'
-import Mailgun from 'mailgun-js'
 import morgan from 'morgan'
 import config from './../config'
-// import cors from 'cors'
+
 const helper = require('sendgrid').mail;
 const sg = require('sendgrid')(config.API_KEY);
 const app = express()
-// const corsOptions = {
-//   origin: 'http:localhost:3000'
-// }
+
 console.log('hello')
-console.log(config.API_KEY)
-app.use(express.static('build/js'));
+app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(express.static('build/js'));
 
-app.use(morgan('dev'));
-
-// app.use(cors(corsOptions))
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
-
-// app.use('*', (req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-//   res.header('Access-Control-Allow-Headers', 'Content-Type');
-//   next();
-// });
-
-app.get('/send/mail', (req, res) => {
-  res.json({
-    message: 'hello world'
-  })
-})
+app.use('*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 app.post('/send/mail', (req, res) => {
-  console.log(req.body)
+  console.log('what is req.body', req.body)
+
   // ==============================
   // SENGRID ~ EMAIL
   // ==============================
 
-  const mail = new helper.Mail(noReplyEmail, fromEmail, toEmail, subject, content);
   const noReplyEmail = new helper.Email('noreply@structured-social.com');
-  const fromEmail = new helper.Email(config.fromEmail);
+  // const fromEmail = new helper.Email(config.email);
   const toEmail = new helper.Email(req.body.to);
   const subject = 'Hello from Structured Social!';
   const content = new helper.Content('text/plain', 'Welcome to Structured Social!');
+  const mail = new helper.Mail(noReplyEmail, toEmail, subject, content);
   const request = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
     body: mail.toJSON(),
   });
+
   sg.API(request, (err, res) => { // eslint-disable-line
     console.log(res.statusCode); // eslint-disable-line
     console.log(res.body); // eslint-disable-line

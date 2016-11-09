@@ -3,7 +3,6 @@ import { combineReducers } from 'redux'
 import * as types from './modalActions'
 import InviteModal from './formContainer'
 import ReferredModal from './form/referredModal'
-import ThankUserModal from './form/thankUserModal'
 
 const INITIAL_STATE = {
   ReferredModal: {

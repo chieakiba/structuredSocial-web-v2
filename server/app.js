@@ -24,24 +24,48 @@ app.post('/send/mail', (req, res) => {
   // SENGRID ~ EMAIL
   // ==============================
 
-  const fromEmail = new helper.Email('noreply@structured-social.com');
-  // const fromEmail = new helper.Email(config.email);
-  const toEmail = new helper.Email(req.body.email);
-  const subject = 'Hello from Structured Social!';
-  const content = new helper.Content('text/plain', 'Welcome to Structured Social!');
-  const mail = new helper.Mail(fromEmail, subject, toEmail, content);
-  const request = sg.emptyRequest({
+  //Send email to user when they submit
+  // const fromEmail = new helper.Email('noreply@structured-social.com');
+  // const toEmail = new helper.Email(req.body.email);
+  // const subject = 'Hello from Structured Social!';
+  // const content = new helper.Content('text/plain', 'Welcome to Structured Social!');
+  // const mail = new helper.Mail(fromEmail, subject, toEmail, content);
+  // const request = sg.emptyRequest({
+  //   method: 'POST',
+  //   path: '/v3/mail/send',
+  //   body: mail.toJSON(),
+  // });
+  //
+  // sg.API(request, (err, res) => { // eslint-disable-line
+  //   console.log(res.statusCode); // eslint-disable-line
+  //   console.log(res.body); // eslint-disable-line
+  //   console.log(res.headers); // eslint-disable-line
+  //   console.log(err); // eslint-disable-line
+  // });
+
+  //Send user info to owner
+  const to_Email = new helper.Email('akiba.chie@gmail.com');
+  const from_Email = new helper.Email('noreply@structured-social.com');
+  const subject_Line = 'Info from ' + req.body.fullName;
+  const content_info = ('text/plain', {
+    'fullName: ': req.body.fullName,
+    'email: ': req.body.email,
+    'Instagram: ':git stat req.body.Instagram
+  });
+  const userInfo = new helper.Mail(from_Email, subject_Line, to_Email, content_info);
+  const info = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
-    body: mail.toJSON(),
+    body: userInfo.toJSON(),
   });
 
-  sg.API(request, (err, res) => { // eslint-disable-line
+  sg.API(info, (err, res) => { // eslint-disable-line
     console.log(res.statusCode); // eslint-disable-line
     console.log(res.body); // eslint-disable-line
     console.log(res.headers); // eslint-disable-line
     console.log(err); // eslint-disable-line
   });
+
   res.sendStatus(200)
 })
 

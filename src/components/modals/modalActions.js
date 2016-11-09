@@ -20,7 +20,8 @@ export const submitForm = () => {
     const user = {
       email: form.values.email,
       Instagram: form.values.Instagram,
-      fullName: form.values.fullName
+      firstName: form.values.firstName,
+      lastName: form.values.lastName
     }
     return axios.post('http://localhost:3001/send/mail', user)
       .then(res => {

@@ -16,21 +16,25 @@ const validate = values => {
   return errors
 }
 
-const InviteModal = ({ pristine, submitting, handleSubmit, submitForm, fullName, email, Instagram }) => (
+const InviteModal = ({ pristine, submitting, handleSubmit, submitForm, firstName, lastName, email, Instagram }) => (
     <Col sm={12} id="invite-form">
       <Form onSubmit={handleSubmit(submitForm)}>
-        <label>First and Last Name</label>
+        <label>First Name</label>
         <div>
-          <Field name="fullName" component="input" type="text" placeholder="Name"/>
+          <Field name="firstName" component="input" type="text" placeholder="firstName"/>
+        </div>
+        <label>Last Name</label>
+        <div>
+          <Field name="lastName" component="input" type="text" placeholder="lastName"/>
         </div>
         <label>Email Address</label>
         <div>
           <Field name="email" component="input" type="email" placeholder="Email address"/>
         </div>
         <label>Instagram Username</label>
-          <div>
-            <Field name="Instagram" component="input" type="text" placeholder="Instagram Username"/>
-          </div>
+        <div>
+          <Field name="Instagram" component="input" type="text" placeholder="Instagram Username"/>
+        </div>
         <Button id="submit" bsStyle="primary" type="submit" disabled={pristine || submitting}>Submit</Button>
       </Form>
     </Col>

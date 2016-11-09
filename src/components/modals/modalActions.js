@@ -3,7 +3,6 @@ import { toastr } from 'react-redux-toastr'
 
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'
-export const FORM_SENT = 'FORM_SENT'
 
 export const closeModal = () => ({
   type: CLOSE_MODAL

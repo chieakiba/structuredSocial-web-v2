@@ -43,20 +43,44 @@ app.post('/send/mail', (req, res) => {
   //   console.log(err); // eslint-disable-line
   // });
 
-  //Send user info to owner
+  //Send invited user info to owner
   const to_Email = new helper.Email(config.email);
   const from_Email = new helper.Email(req.body.email);
   const subject_Line = 'New form submission from ' + req.body.firstName + ' ' + req.body.lastName;
-  const content_info = new helper.Content('text/html',
+  const invitedContent = new helper.Content('text/html',
     'Name: ' + req.body.firstName + ' ' + req.body.lastName +
     ' Instagram: ' + req.body.Instagram +
     ' Email: ' + req.body.email
   );
-  const userInfo = new helper.Mail(from_Email, subject_Line, to_Email, content_info);
-  const info = sg.emptyRequest({
+  const userInviteInfo = new helper.Mail(from_Email, subject_Line, to_Email, invitedContent);
+  const invitedInfo = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
-    body: userInfo.toJSON(),
+    body: userInviteInfo.toJSON(),
+  });
+
+  sg.API(invitedInfo, (err, res) => { // eslint-disable-line
+    console.log(res.statusCode); // eslint-disable-line
+    console.log(res.body); // eslint-disable-line
+    console.log(res.headers); // eslint-disable-line
+    console.log(err); // eslint-disable-line
+  });
+
+  //Send referred user info to owner
+  const toEmail = new helper.Email(config.email);
+  const fromEmail = new helper.Email(req.body.email);
+  const subject = 'New form submission from ' + req.body.firstName + ' ' + req.body.lastName;
+  const referredContent = new helper.Content('text/html',
+    'Name: ' + req.body.firstName + ' ' + req.body.lastName +
+    ' Instagram: ' + req.body.Instagram +
+    ' Email: ' + req.body.email +
+    ' Referred from: ' + req.body.referee
+  );
+  const userReferredInfo = new helper.Mail(fromEmail, subject, toEmail, referredContent);
+  const referredInfo = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: userReferredInfo.toJSON(),
   });
 
   sg.API(info, (err, res) => { // eslint-disable-line
@@ -65,6 +89,7 @@ app.post('/send/mail', (req, res) => {
     console.log(res.headers); // eslint-disable-line
     console.log(err); // eslint-disable-line
   });
+
 
   res.sendStatus(200)
 })

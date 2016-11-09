@@ -24,11 +24,11 @@ app.post('/send/mail', (req, res) => {
   // SENGRID ~ EMAIL
   // ==============================
 
-  //Send email to user when they submit
+  //Send email to user when they submit - uncomment if you want to use this
   // const fromEmail = new helper.Email('noreply@structured-social.com');
   // const toEmail = new helper.Email(req.body.email);
   // const subject = 'Hello from Structured Social!';
-  // const content = new helper.Content('text/plain', 'Welcome to Structured Social!');
+  // const content = new helper.Content('text/plain', 'Welcome to Structured Social! Our team will be contact you soon.');
   // const mail = new helper.Mail(fromEmail, subject, toEmail, content);
   // const request = sg.emptyRequest({
   //   method: 'POST',
@@ -44,14 +44,14 @@ app.post('/send/mail', (req, res) => {
   // });
 
   //Send user info to owner
-  const to_Email = new helper.Email('akiba.chie@gmail.com');
-  const from_Email = new helper.Email('noreply@structured-social.com');
-  const subject_Line = 'Info from ' + req.body.fullName;
-  const content_info = ('text/plain', {
-    'fullName: ': req.body.fullName,
-    'email: ': req.body.email,
-    'Instagram: ':git stat req.body.Instagram
-  });
+  const to_Email = new helper.Email(config.email);
+  const from_Email = new helper.Email(req.body.email);
+  const subject_Line = 'New form submission from ' + req.body.firstName + ' ' + req.body.lastName;
+  const content_info = new helper.Content('text/html',
+    'Name: ' + req.body.firstName + ' ' + req.body.lastName +
+    ' Instagram: ' + req.body.Instagram +
+    ' Email: ' + req.body.email
+  );
   const userInfo = new helper.Mail(from_Email, subject_Line, to_Email, content_info);
   const info = sg.emptyRequest({
     method: 'POST',

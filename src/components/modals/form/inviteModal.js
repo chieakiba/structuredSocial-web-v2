@@ -21,11 +21,11 @@ const InviteModal = ({ pristine, submitting, handleSubmit, submitForm, firstName
       <Form onSubmit={handleSubmit(submitForm)}>
         <label>First Name</label>
         <div>
-          <Field name="firstName" component="input" type="text" placeholder="firstName"/>
+          <Field name="firstName" component="input" type="text" placeholder="First Name"/>
         </div>
         <label>Last Name</label>
         <div>
-          <Field name="lastName" component="input" type="text" placeholder="lastName"/>
+          <Field name="lastName" component="input" type="text" placeholder="Last Name"/>
         </div>
         <label>Email Address</label>
         <div>

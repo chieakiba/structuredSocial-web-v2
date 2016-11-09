@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 
 const validate = values => {
   const errors = {}
-  const requiredFields = [ "fullName", "email", "Instagram" ]
+  const requiredFields = [ "firstName", "lastName", "email", "Instagram", "referee" ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -16,9 +16,9 @@ const validate = values => {
   return errors
 }
 
-const ReferredModal = ({ pristine, submitting, handleSubmit, submitForm, firstName, lastName, email, Instagram }) => (
+const ReferredModal = ({ pristine, submitting, handleSubmit, submitForm, firstName, lastName, email, Instagram, referee }) => (
   <Col sm={12} id="referral-form">
-    <Form onSubmit={handleSubmit(submitForm)}>
+    <Form onSubmit={() => {submitForm}}>
       <label>First Name</label>
       <div>
         <Field name="firstName" component="input" type="text" placeholder="First Name"/>
@@ -34,6 +34,10 @@ const ReferredModal = ({ pristine, submitting, handleSubmit, submitForm, firstNa
       <label>Instagram Username</label>
       <div>
         <Field name="Instagram" component="input" type="text" placeholder="Instagram Username"/>
+      </div>
+      <label>Person Who Referred You</label>
+      <div>
+        <Field name="referee" component="input" type="text" placeholder="Person Who Referred You"/>
       </div>
       <Button id="submit" bsStyle="primary" type="submit" disabled={pristine || submitting}>Submit</Button>
     </Form>

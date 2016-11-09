@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 
 const validate = values => {
   const errors = {}
-  const requiredFields = [ "fullName", "email", "Instagram" ]
+  const requiredFields = [ "firstName", "lastName", "email", "Instagram" ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'

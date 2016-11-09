@@ -20,13 +20,13 @@ const InviteModal = ({ pristine, submitting, handleSubmit, submitForm, fullName,
     <Col sm={12} id="invite-form">
       <Form onSubmit={handleSubmit(submitForm)}>
         <label>First and Last Name</label>
-          <div>
-            <Field name="fullName" component="input" type="text" placeholder="Name"/>
-          </div>
+        <div>
+          <Field name="fullName" component="input" type="text" placeholder="Name"/>
+        </div>
         <label>Email Address</label>
-          <div>
-            <Field name="email" component="input" type="email" placeholder="Email address"/>
-          </div>
+        <div>
+          <Field name="email" component="input" type="email" placeholder="Email address"/>
+        </div>
         <label>Instagram Username</label>
           <div>
             <Field name="Instagram" component="input" type="text" placeholder="Instagram Username"/>

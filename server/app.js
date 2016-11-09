@@ -48,6 +48,7 @@ app.post('/send/mail', (req, res) => {
     console.log(res.headers); // eslint-disable-line
     console.log(err); // eslint-disable-line
   });
+  res.send(200)
 })
 
 app.listen(3001, () => console.log('SERVER running on port 3001'));

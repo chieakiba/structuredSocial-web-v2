@@ -12,9 +12,10 @@ const ShowModalButton = ({ modals, toggleModal, closeModal }) => {
   const theModal = checkModal(modals)
   return (
     <div>
-      <Button id="invite-button" name="inviteButton" bsStyle="primary" bsSize="large" onClick={() => toggleModal('InviteModal')}>Request an invite</Button>
+      <Button id="invite-button" name="inviteButton" bsStyle="primary" bsSize="large" onClick={() => toggleModal('ThankUserModal')}>Request an invite</Button>
       <Button id="referral-button" name="referralButton" bsStyle="primary" bsSize="large" onClick={() => toggleModal('ReferredModal')}>I have a referral</Button>
       <ModalComponent name={theModal ? theModal.modal : false} show={theModal ? theModal.show : false} title={theModal ? theModal.title : false} closeModal={() => closeModal()}/>
+
     </div>
   )
 }

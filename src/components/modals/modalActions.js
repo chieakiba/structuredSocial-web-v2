@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {toastr} from 'react-redux-toastr'
 
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'
@@ -22,8 +23,16 @@ export const submitForm = () => {
       fullName: form.values.fullName
     }
     return axios.post('http://localhost:3001/send/mail', user)
-      .then(res => console.log('what is res.data', res.data))
-      .catch(error => console.log('what is error', error))
+      .then(res => {
+        toastr.success('success', `Welcome ${user.fullName}`)
+        dispatch(closeModal())
+        dispatch(toggleModal('ThankUserModal'))
+        console.log('what is res.data', res.data)
+      })
+      .catch(error => {
+        toastr.error('error', error)
+        console.log('what is error', error)
+      })
   }
 }
 

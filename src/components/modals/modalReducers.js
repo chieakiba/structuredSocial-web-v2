@@ -19,7 +19,7 @@ const INITIAL_STATE = {
   ThankUserModal: {
     title: 'Thank you',
     modal: <ThankUserModal />,
-    show: false,
+    show: false
   }
 };
 

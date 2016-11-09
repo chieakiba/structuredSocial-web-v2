@@ -15,11 +15,6 @@ const INITIAL_STATE = {
     title: 'Join the club',
     modal: <InviteModal />,
     show: false,
-  },
-  ThankUserModal: {
-    title: 'Thank you',
-    modal: <ThankUserModal />,
-    show: false
   }
 };
 

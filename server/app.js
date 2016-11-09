@@ -19,12 +19,6 @@ app.use('*', (req, res, next) => {
   next();
 });
 
-app.get('/send/mail', (req, res) => {
-  res.json({
-    msg: 'Why is this not working?'
-  })
-})
-
 app.post('/send/mail', (req, res) => {
   // ==============================
   // SENGRID ~ EMAIL

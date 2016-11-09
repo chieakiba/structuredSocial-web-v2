@@ -26,7 +26,6 @@ export const submitForm = () => {
       .then(res => {
         toastr.success('success', `Welcome ${user.fullName}`)
         dispatch(closeModal())
-        dispatch(toggleModal('ThankUserModal'))
         console.log('what is res.data', res.data)
       })
       .catch(error => {
@@ -35,29 +34,3 @@ export const submitForm = () => {
       })
   }
 }
-
-// export const sentSuccessThankUser = (msg) => {
-//   return (dispatch) => {
-//     let url = 'https://api.mailgun.net/v3/' + 'structured-social.com'
-//     return fetch(url, {
-//       method: 'post',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     })
-//     .then((res) => {
-//       if(res.status < 200 || res.status >= 300) {
-//         let error = new Error(res.statusText)
-//         error.res = res
-//         throw error
-//       }
-//       return res.json({})
-//     })
-//     .then((msg) => {
-//       return dispatch(toggleModal('ThankUserModal'))
-//     })
-//     .catch((error) => {
-//       return dispatch(formSentError(error))
-//     })
-//   }
-// }

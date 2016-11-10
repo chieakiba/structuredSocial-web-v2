@@ -18,7 +18,7 @@ const validate = values => {
 
 const ReferredModal = ({ pristine, submitting, handleSubmit, submitForm, firstName, lastName, email, Instagram, referee }) => (
     <Col sm={12} id="referral-form">
-      <Form onSubmit={handleSubmit(submitForm)}>
+      <Form onSubmit={handleSubmit(submitForm)} >
         <label>First Name</label>
         <div>
           <Field name="firstName" component="input" type="text" placeholder="First Name"/>

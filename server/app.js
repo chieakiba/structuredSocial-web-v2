@@ -28,7 +28,7 @@ app.post('/send/mail', (req, res) => {
   // const fromEmail = new helper.Email('noreply@structured-social.com');
   // const toEmail = new helper.Email(req.body.email);
   // const subject = 'Hello from Structured Social!';
-  // const content = new helper.Content('text/plain', 'Welcome to Structured Social! Our team will be contact you soon.');
+  // const content = new helper.Content('text/plain', 'Welcome to Structured Social! Our team will review your application and contact you soon.');
   // const mail = new helper.Mail(fromEmail, subject, toEmail, content);
   // const request = sg.emptyRequest({
   //   method: 'POST',
@@ -83,7 +83,7 @@ app.post('/send/mail', (req, res) => {
     body: userReferredInfo.toJSON(),
   });
 
-  sg.API(info, (err, res) => { // eslint-disable-line
+  sg.API(referredInfo, (err, res) => { // eslint-disable-line
     console.log(res.statusCode); // eslint-disable-line
     console.log(res.body); // eslint-disable-line
     console.log(res.headers); // eslint-disable-line

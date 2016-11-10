@@ -40,7 +40,6 @@ const InviteModal = ({ pristine, submitting, handleSubmit, submitForm, firstName
     </Col>
   )
 
-
 export default reduxForm({
   form: 'InviteModalForm',
   validate

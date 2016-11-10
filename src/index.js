@@ -8,7 +8,7 @@ import ReduxToastr from 'react-redux-toastr'
 ReactDOM.render (
   <Provider store={store}>
     <div>
-      <App/>
+      <App />
       <ReduxToastr
         timeOut={4000}
         newestOnTop={false}

@@ -87,6 +87,9 @@ Modal
 #referral-form, #invite-form {
   font-family: "Roboto", serif;
 }
+#contained-modal-title-sm {
+  font-family: "Roboto", serif;
+}
 /*#referral-content, #invite-content {
   background-color: #fefefe;
   margin: 15% auto;
@@ -108,19 +111,30 @@ Modal
 }
 
 /*Buttons*/
+#forms {
+  width: 30%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 5em;
+}
+#forms Button {
+  margin-right: 2em;
+}
 #referral-button {
   color: #fff;
-  background-color: #3498DB;
+  background: #3498DB;
   border-color: #2E86C1;
+  text-shadow: none;
 }
 #invite-button {
   color: #fff;
-  background-color: #E74C3C;
+  background: #E74C3C;
   border-color: #F4503F;
+  text-shadow: none;
 }
 #submit {
   color: #fff;
-  background-color: #E74C3C;
+  background: #E74C3C;
   border-color: #F4503F;
   margin-bottom: 1em;
 }

@@ -14,27 +14,41 @@ export const toggleModal = modal => ({
   modal
 });
 
-export const submitForm = () => {
+export const submitInviteForm = () => {
   return (dispatch, getState) => {
-    const form = getState().form.InviteModalForm;
-    const user = {
+    let form = getState().form.InviteModalForm;
+    let user = {
       email: form.values.email,
       Instagram: form.values.Instagram,
       firstName: form.values.firstName,
       lastName: form.values.lastName
     }
-    const referredForm = getState().form.ReferredModalForm;
-    const referredUser = {
-      email: referredForm.values.email,
-      Instagram: referredForm.values.Instagram,
-      firstName: referredForm.values.firstName,
-      lastName: referredForm.values.lastName,
-      referee: referredForm.values.referee
-    }
-    return axios.post('http://localhost:3001/send/mail', user, referredUser)
+    return axios.post('http://localhost:3001/send/invitemail', user)
       .then(res => {
         toastr.success('success', `Welcome ${user.firstName}`)
-        toastr.success('success', `Welcome ${referredUser.firstName}`)
+        dispatch(closeModal())
+        console.log('what is res.data', res.data)
+      })
+      .catch(error => {
+        toastr.error('error', error)
+        console.log('what is error', error)
+      })
+  }
+}
+
+export const submitReferredForm = () => {
+  return (dispatch, getState) => {
+    let form = getState().form.ReferredModalForm;
+    let user = {
+      email: form.values.email,
+      Instagram: form.values.Instagram,
+      firstName: form.values.firstName,
+      lastName: form.values.lastName,
+      referee: form.values.referee
+    }
+    return axios.post('http://localhost:3001/send/referredmail', user)
+      .then(res => {
+        toastr.success('success', `Welcome ${user.firstName}`)
         dispatch(closeModal())
         console.log('what is res.data', res.data)
       })

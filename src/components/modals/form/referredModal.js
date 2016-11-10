@@ -16,7 +16,7 @@ const validate = values => {
   return errors
 }
 
-const ReferredModal = ({ pristine, submitting, handleSubmit, submitForm, firstName, lastName, email, Instagram, referee }) => (
+const ReferredModal = ({ pristine, submitting, handleSubmit, submitForm }) => (
     <Col sm={12} id="referral-form">
       <Form onSubmit={handleSubmit(submitForm)} >
         <label>First Name</label>

@@ -19,29 +19,30 @@ app.use('*', (req, res, next) => {
   next();
 });
 
-app.post('/send/mail', (req, res) => {
+//Send email to the owner and user when the user submits the request invite form
+app.post('/send/invitemail', (req, res) => {
   // ==============================
   // SENGRID ~ EMAIL
   // ==============================
 
   //Send email to user when they submit - uncomment if you want to use this
-  // const fromEmail = new helper.Email('noreply@structured-social.com');
-  // const toEmail = new helper.Email(req.body.email);
-  // const subject = 'Hello from Structured Social!';
-  // const content = new helper.Content('text/plain', 'Welcome to Structured Social! Our team will review your application and contact you soon.');
-  // const mail = new helper.Mail(fromEmail, subject, toEmail, content);
-  // const request = sg.emptyRequest({
-  //   method: 'POST',
-  //   path: '/v3/mail/send',
-  //   body: mail.toJSON(),
-  // });
-  //
-  // sg.API(request, (err, res) => { // eslint-disable-line
-  //   console.log(res.statusCode); // eslint-disable-line
-  //   console.log(res.body); // eslint-disable-line
-  //   console.log(res.headers); // eslint-disable-line
-  //   console.log(err); // eslint-disable-line
-  // });
+  const fromEmail = new helper.Email('noreply@structured-social.com');
+  const toEmail = new helper.Email(req.body.email);
+  const subject = 'Hello from Structured Social!';
+  const content = new helper.Content('text/plain', 'Welcome to Structured Social! Our team will review your application and contact you soon.');
+  const mail = new helper.Mail(fromEmail, subject, toEmail, content);
+  const request = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: mail.toJSON(),
+  });
+
+  sg.API(request, (err, res) => { // eslint-disable-line
+    console.log(res.statusCode); // eslint-disable-line
+    console.log(res.body); // eslint-disable-line
+    console.log(res.headers); // eslint-disable-line
+    console.log(err); // eslint-disable-line
+  });
 
   //Send invited user info to owner
   const to_Email = new helper.Email(config.email);
@@ -65,18 +66,45 @@ app.post('/send/mail', (req, res) => {
     console.log(res.headers); // eslint-disable-line
     console.log(err); // eslint-disable-line
   });
+  res.sendStatus(200)
+})
+
+//Send email to the owner and user when the user submits the request invite form
+app.post('/send/referredmail', (req, res) => {
+  // ==============================
+  // SENGRID ~ EMAIL
+  // ==============================
+
+  //Send email to user when they submit - uncomment if you want to use this
+  const from_Email = new helper.Email('noreply@structured-social.com');
+  const to_Email = new helper.Email(req.body.email);
+  const subject = 'Hello from Structured Social!';
+  const content = new helper.Content('text/plain', 'Welcome to Structured Social! Our team will review your application and contact you soon.');
+  const mail = new helper.Mail(from_Email, subject, to_Email, content);
+  const request = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: mail.toJSON(),
+  });
+
+  sg.API(request, (err, res) => { // eslint-disable-line
+    console.log(res.statusCode); // eslint-disable-line
+    console.log(res.body); // eslint-disable-line
+    console.log(res.headers); // eslint-disable-line
+    console.log(err); // eslint-disable-line
+  });
 
   //Send referred user info to owner
-  const toEmail = new helper.Email(config.email);
-  const fromEmail = new helper.Email(req.body.email);
-  const subject = 'New form submission from ' + req.body.firstName + ' ' + req.body.lastName;
+  const to_RefEmail = new helper.Email(config.email);
+  const from_RefEmail = new helper.Email(req.body.email);
+  const subject_referred = 'New form submission from ' + req.body.firstName + ' ' + req.body.lastName;
   const referredContent = new helper.Content('text/html',
     'Name: ' + req.body.firstName + ' ' + req.body.lastName +
     ' Instagram: ' + req.body.Instagram +
     ' Email: ' + req.body.email +
     ' Referred from: ' + req.body.referee
   );
-  const userReferredInfo = new helper.Mail(fromEmail, subject, toEmail, referredContent);
+  const userReferredInfo = new helper.Mail(from_Email, subject_referred, to_RefEmail, referredContent);
   const referredInfo = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
@@ -89,7 +117,6 @@ app.post('/send/mail', (req, res) => {
     console.log(res.headers); // eslint-disable-line
     console.log(err); // eslint-disable-line
   });
-
 
   res.sendStatus(200)
 })

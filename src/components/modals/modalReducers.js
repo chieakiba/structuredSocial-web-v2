@@ -1,8 +1,8 @@
 import React from 'react'
 import { combineReducers } from 'redux'
 import * as types from './modalActions'
-import InviteModal from './formContainer'
-import ReferredModal from './form/referredModal'
+import InviteModal from './inviteFormContainer'
+import ReferredModal from './referredFormContainer'
 
 const INITIAL_STATE = {
   ReferredModal: {

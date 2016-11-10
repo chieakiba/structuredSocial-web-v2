@@ -16,9 +16,9 @@ const validate = values => {
   return errors
 }
 
-const InviteModal = ({ pristine, submitting, handleSubmit, submitForm }) => (
+const InviteModal = ({ pristine, submitting, handleSubmit, submitInviteForm }) => (
     <Col sm={12} id="invite-form">
-      <Form onSubmit={handleSubmit(submitForm)}>
+      <Form onSubmit={handleSubmit(submitInviteForm)}>
         <label>First Name</label>
         <div>
           <Field name="firstName" component="input" type="text" placeholder="First Name"/>

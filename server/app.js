@@ -29,7 +29,7 @@ app.post('/send/invitemail', (req, res) => {
   const fromEmail = new helper.Email('noreply@structured-social.com');
   const toEmail = new helper.Email(req.body.email);
   const subject = 'Hello from Structured Social!';
-  const content = new helper.Content('text/plain', 'Welcome to Structured Social! Our team will review your application and contact you soon.');
+  const content = new helper.Content('text/html', `Hi ${req.body.firstName},<br><br>Thanks for checking out Structured Social. Our team will review your application and contact you soon.`);
   const mail = new helper.Mail(fromEmail, subject, toEmail, content);
   const request = sg.emptyRequest({
     method: 'POST',
@@ -45,15 +45,15 @@ app.post('/send/invitemail', (req, res) => {
   });
 
   //Send invited user info to owner
-  const to_Email = new helper.Email(config.email);
-  const from_Email = new helper.Email(req.body.email);
-  const subject_Line = 'New form submission from ' + req.body.firstName + ' ' + req.body.lastName;
+  const to_InviteEmail = new helper.Email(config.email);
+  const from_InviteEmail = new helper.Email(req.body.email);
+  const subject_Invite = 'New form submission from ' + req.body.firstName + ' ' + req.body.lastName;
   const invitedContent = new helper.Content('text/html',
     'Name: ' + req.body.firstName + ' ' + req.body.lastName +
-    ' Instagram: ' + req.body.Instagram +
-    ' Email: ' + req.body.email
+    '<br>Instagram: ' + req.body.Instagram +
+    '<br>Email: ' + req.body.email
   );
-  const userInviteInfo = new helper.Mail(from_Email, subject_Line, to_Email, invitedContent);
+  const userInviteInfo = new helper.Mail(from_InviteEmail, subject_Invite, to_InviteEmail, invitedContent);
   const invitedInfo = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
@@ -78,16 +78,16 @@ app.post('/send/referredmail', (req, res) => {
   //Send email to user when they submit - uncomment if you want to use this
   const from_Email = new helper.Email('noreply@structured-social.com');
   const to_Email = new helper.Email(req.body.email);
-  const subject = 'Hello from Structured Social!';
-  const content = new helper.Content('text/plain', 'Welcome to Structured Social! Our team will review your application and contact you soon.');
-  const mail = new helper.Mail(from_Email, subject, to_Email, content);
-  const request = sg.emptyRequest({
+  const subject_ = 'Hello from Structured Social!';
+  const content_ = new helper.Content('text/html', `Hi ${req.body.firstName},<br><br>Thanks for checking out Structured Social. Our team will review your application and contact you soon.`);
+  const mail_ = new helper.Mail(from_Email, subject_, to_Email, content_);
+  const request_ = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
-    body: mail.toJSON(),
+    body: mail_.toJSON(),
   });
 
-  sg.API(request, (err, res) => { // eslint-disable-line
+  sg.API(request_, (err, res) => { // eslint-disable-line
     console.log(res.statusCode); // eslint-disable-line
     console.log(res.body); // eslint-disable-line
     console.log(res.headers); // eslint-disable-line
@@ -97,18 +97,18 @@ app.post('/send/referredmail', (req, res) => {
   //Send referred user info to owner
   const to_RefEmail = new helper.Email(config.email);
   const from_RefEmail = new helper.Email(req.body.email);
-  const subject_referred = 'New form submission from ' + req.body.firstName + ' ' + req.body.lastName;
+  const subject_Referred = 'New form submission from ' + req.body.firstName + ' ' + req.body.lastName;
   const referredContent = new helper.Content('text/html',
     'Name: ' + req.body.firstName + ' ' + req.body.lastName +
-    ' Instagram: ' + req.body.Instagram +
-    ' Email: ' + req.body.email +
-    ' Referred from: ' + req.body.referee
+    '<br>Instagram: ' + req.body.Instagram +
+    '<br>Email: ' + req.body.email +
+    '<br>Referred from: ' + req.body.referee
   );
-  const userReferredInfo = new helper.Mail(from_Email, subject_referred, to_RefEmail, referredContent);
+  const referredUserInfo = new helper.Mail(from_RefEmail, subject_Referred, to_RefEmail, referredContent);
   const referredInfo = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
-    body: userReferredInfo.toJSON(),
+    body: referredUserInfo.toJSON(),
   });
 
   sg.API(referredInfo, (err, res) => { // eslint-disable-line

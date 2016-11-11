@@ -103,11 +103,14 @@ Modal
   font-size: 3em;
 }
 
-/*Input*/
+/*Input and Error Message*/
 #user-form {
   margin: 2em auto;
   width: 80%;
   font-family: "Roboto", serif;
+}
+#errorMessage {
+  color: red;
 }
 
 /*Buttons*/

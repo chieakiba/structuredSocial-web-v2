@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Button, Form } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import { Field, reduxForm } from 'redux-form'
 
 const validate = values => {
@@ -16,31 +16,30 @@ const validate = values => {
   return errors
 }
 
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+      {touched && error && <div id="errorMessage"><strong>{error}</strong></div>}
+    </div>
+  </div>
+)
+
 const InviteModal = ({ pristine, submitting, handleSubmit, submitInviteForm }) => (
-    <Col sm={12} id="invite-form">
-      <Form onSubmit={handleSubmit(submitInviteForm)}>
-        <label>First Name</label>
-        <div>
-          <Field name="firstName" component="input" type="text" placeholder="First Name"/>
-        </div>
-        <label>Last Name</label>
-        <div>
-          <Field name="lastName" component="input" type="text" placeholder="Last Name"/>
-        </div>
-        <label>Email Address</label>
-        <div>
-          <Field name="email" component="input" type="email" placeholder="Email address"/>
-        </div>
-        <label>Instagram Username</label>
-        <div>
-          <Field name="Instagram" component="input" type="text" placeholder="Instagram Username"/>
-        </div>
+    <Form id="invite-form" onSubmit={handleSubmit(submitInviteForm)}>
+      <Field name="firstName" type="text" label="First Name" component={renderField} />
+      <Field name="lastName" type="text" label="Last Name" component={renderField} />
+      <Field name="email" type="email" label="Email address" component={renderField} />
+      <Field name="Instagram" type="text" label="Instagram Username" component={renderField} />
+      <div>
         <Button id="submit" bsStyle="primary" type="submit" disabled={pristine || submitting}>Submit</Button>
-      </Form>
-    </Col>
+      </div>
+    </Form>
   )
 
 export default reduxForm({
   form: 'InviteModalForm',
-  validate
+  validate,
+  renderField
 })(InviteModal)

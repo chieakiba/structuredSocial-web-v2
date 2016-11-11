@@ -16,35 +16,33 @@ const validate = values => {
   return errors
 }
 
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+      {touched && error && <div id="errorMessage"><strong>{error}</strong></div>}
+    </div>
+  </div>
+)
+
 const ReferredModal = ({ pristine, submitting, handleSubmit, submitReferredForm }) => (
     <Col sm={12} id="referral-form">
       <Form onSubmit={handleSubmit(submitReferredForm)} >
-        <label>First Name</label>
+        <Field name="firstName" component={renderField} type="text" label="First Name"/>
+        <Field name="lastName" component={renderField} type="text" label="Last Name"/>
+        <Field name="email" component={renderField} type="email" label="Email address"/>
+        <Field name="Instagram" component={renderField} type="text" label="Instagram Username"/>
+        <Field name="referee" component="input" type="text" label="Person Who Referred You"/>
         <div>
-          <Field name="firstName" component="input" type="text" placeholder="First Name"/>
+          <Button id="submit" bsStyle="primary" type="submit" disabled={pristine || submitting}>Submit</Button>
         </div>
-        <label>Last Name</label>
-        <div>
-          <Field name="lastName" component="input" type="text" placeholder="Last Name"/>
-        </div>
-        <label>Email Address</label>
-        <div>
-          <Field name="email" component="input" type="email" placeholder="Email address"/>
-        </div>
-        <label>Instagram Username</label>
-        <div>
-          <Field name="Instagram" component="input" type="text" placeholder="Instagram Username"/>
-        </div>
-        <label>Person Who Referred You</label>
-        <div>
-          <Field name="referee" component="input" type="text" placeholder="Person Who Referred You"/>
-        </div>
-        <Button id="submit" bsStyle="primary" type="submit" disabled={pristine || submitting}>Submit</Button>
       </Form>
     </Col>
 )
 
 export default reduxForm({
   form: 'ReferredModalForm',
-  validate
+  validate,
+  renderField
 })(ReferredModal)

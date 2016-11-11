@@ -1,6 +1,5 @@
 /*Nav Bar*/
 body {
-  /*min-height: 1900px;*/
   padding-top: 70px;
 }
 
@@ -48,11 +47,7 @@ body {
   padding: 1em 0;
 }
 
-.title h1 {
-  font-family: "Roboto", serif;
-}
-
-.title h3 {
+.title h1, h3 {
   font-family: "Roboto", serif;
 }
 
@@ -72,14 +67,6 @@ body {
 /*Counter*/
 .counter {
   font-weight: bold;
-}
-
-/*
-Modal
-*/
-#form {
-  margin-top: -13em;
-  margin-bottom: -15em;
 }
 
 /* Modal Content/Box */

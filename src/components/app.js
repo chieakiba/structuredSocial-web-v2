@@ -12,7 +12,7 @@ const App = () => (
       <Title/>
       <Services/>
       <CounterContainer />
-      <ModalContainer working />
+      <ModalContainer />
       <Footer/>
     </div>
 );

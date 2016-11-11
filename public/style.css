@@ -89,25 +89,18 @@ Modal
 }
 #contained-modal-title-sm {
   font-family: "Roboto", serif;
+  text-align: center;
 }
-/*#referral-content, #invite-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  /*border: 1px solid #888;*/
-  /*width: 50%;
-}*/
 #referral-form h3, #invite-form h3 {
   margin-top: 1em;
   font-family: "Play ball", cursive;
   font-size: 3em;
 }
-
-/*Input and Error Message*/
-#user-form {
-  margin: 2em auto;
-  width: 80%;
-  font-family: "Roboto", serif;
+#referral-form div, #invite-form div {
+  padding-bottom: 0.5em;
+}
+#referral-form input, #invite-form input {
+  width: 15em;
 }
 #errorMessage {
   color: red;
@@ -115,13 +108,13 @@ Modal
 
 /*Buttons*/
 #forms {
-  width: 30%;
+  width: 25%;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 5em;
 }
 #forms Button {
-  margin-right: 2em;
+  margin-right: 0.75em;
 }
 #referral-button {
   color: #fff;

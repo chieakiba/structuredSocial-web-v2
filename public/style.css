@@ -32,6 +32,11 @@ body {
   margin-top: -2em;
 }
 
+#header img {
+  width: 50em;
+  margin-top: -10em;
+}
+
 .content {
   padding-bottom: 1em;
 }

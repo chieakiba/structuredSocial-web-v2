@@ -3,12 +3,14 @@ import { Row } from 'react-bootstrap'
 
 const Title = () => {
   return (
-    <header id="header">
-      <Row className="show-grid text-center">
-        <img src="/images/SocialStructure-01.png" alt="logo"/>
-        <h3>Lorem ipsum dolor sit amet consectetur adipiscing elit</h3>
-      </Row>
-    </header>
+    <div id="background">
+      <header id="header">
+        <Row className="show-grid text-center">
+          <img src="/images/SocialStructure-01.png" alt="logo"/>
+          <h3>We give you targeted and organic growth in a crowded social space</h3>
+        </Row>
+      </header>
+    </div>
   )
 }
 

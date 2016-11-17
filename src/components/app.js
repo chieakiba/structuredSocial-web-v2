@@ -8,7 +8,6 @@ import ModalContainer from './modals/ModalContainer'
 
 const App = () => (
     <div>
-      <NavigationBar/>
       <Title/>
       <Services/>
       <CounterContainer />
